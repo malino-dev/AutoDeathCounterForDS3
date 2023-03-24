@@ -4,7 +4,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var ds3 = new Ds3();
+        var ds3 = new Ds3(Ds3.V1_15);
         int deaths = ds3.GetDeaths();
         
         while (true)
