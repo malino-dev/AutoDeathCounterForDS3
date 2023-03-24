@@ -4,19 +4,25 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var ds3 = new Ds3(Ds3.V1_15);
-        int deaths = ds3.GetDeaths();
-        
+        Ds3 ds3 = new Ds3(Ds3.V1_15);
+        DataCache cache = null;
+
         while (true)
         {
-            int newDeaths = ds3.GetDeaths();
-
-            if(newDeaths != deaths)
+            DataCache newData = new DataCache
             {
-                IncreaseCounter();
+                Deaths = ds3.GetDeaths()
+            };
+
+            if (cache != null)
+            { 
+                if (cache.Deaths != newData.Deaths)
+                {
+                    IncreaseCounter();
+                }
             }
 
-            deaths = newDeaths;
+            cache = newData;
 
             Thread.Sleep(16); // 60 FPS = 16.67 frame duration
         }
