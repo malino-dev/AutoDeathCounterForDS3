@@ -4,16 +4,18 @@ namespace AutoDeathCounterForDS3;
 
 public class Ds3
 {
-    private static IOffsetData _1_15 = new OffsetData_1_15();
-    public static IOffsetData V1_15 => _1_15;
+   
 
     private ProcessMemory _process;
     private IOffsetData _offsetData;
 
-    public Ds3(IOffsetData offsetData)
+    public GameVersion Version { get; private set; }
+
+    public Ds3(ProcessMemory process)
     {
-        _process = new ProcessMemory("DarkSoulsIII");
-        _offsetData = offsetData;
+        _process = process;
+        Version = new GameVersion(_process);
+        _offsetData = Version.OffsetData;
     }
 
     public int GetHp()

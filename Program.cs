@@ -2,23 +2,46 @@
 
 public class Program
 {
-    public static void Main(string[] args)
+    static event Action<int> DeathsChanged;
+    static event Action<int> HpChanged;
+
+    static void Main(string?[]? args)
     {
-        Ds3 ds3 = new Ds3(Ds3.V1_15);
-        DataCache cache = null;
+        var process = new ProcessMemory("DarkSoulsIII");
+        var ds3 = new Ds3(process);
+
+        RegisterEvents();
+        GameLoop(ds3);
+    }
+
+    static void RegisterEvents()
+    {
+        DeathsChanged += OnDeathsChanged;
+        HpChanged += OnHpChanged;
+    }
+
+    static void GameLoop(Ds3 ds3)
+    {
+        DataCache? cache = null;
 
         while (true)
         {
             DataCache newData = new DataCache
             {
-                Deaths = ds3.GetDeaths()
+                Deaths = ds3.GetDeaths(),
+                Hp = ds3.GetHp(),
             };
 
             if (cache != null)
-            { 
+            {
                 if (cache.Deaths != newData.Deaths)
                 {
-                    IncreaseCounter();
+                    DeathsChanged.Invoke(newData.Deaths);
+                }
+
+                if (cache.Hp != newData.Hp)
+                {
+                    HpChanged.Invoke(newData.Hp);
                 }
             }
 
@@ -28,8 +51,13 @@ public class Program
         }
     }
 
-    private static void IncreaseCounter()
+    static void OnDeathsChanged(int deaths)
     {
         Console.WriteLine("died");
+    }
+
+    static void OnHpChanged(int obj)
+    {
+        
     }
 }

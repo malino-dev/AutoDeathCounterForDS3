@@ -19,6 +19,11 @@ public class ProcessMemory
     static extern int GetLastError();
 
     public IntPtr BaseAddress => _baseAddress;
+    
+    public FileVersionInfo GetFileVersion(int moduleId)
+    {
+        return _process.Modules[moduleId].FileVersionInfo;
+    }
 
     public ProcessMemory(string name)
     {
