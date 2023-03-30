@@ -1,11 +1,10 @@
 ﻿using AutoDeathCounterForDS3.OffsetDataNS;
+using WinApiUtils.ProcessNS;
 
 namespace AutoDeathCounterForDS3;
 
 public class Ds3
 {
-   
-
     private ProcessMemory _process;
     private IOffsetData _offsetData;
 

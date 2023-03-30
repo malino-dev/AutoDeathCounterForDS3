@@ -1,4 +1,5 @@
 ﻿using AutoDeathCounterForDS3;
+using WinApiUtils.ProcessNS;
 
 public class Program
 {

@@ -12,4 +12,10 @@
     <None Remove=".gitignore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="WinApiUtils">
+      <HintPath>..\..\WinApiUtils\WinApiUtils\bin\Debug\WinApiUtils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
